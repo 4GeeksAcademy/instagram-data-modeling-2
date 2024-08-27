@@ -1,6 +1,6 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String, Table
+from sqlalchemy import Column, ForeignKey, Integer, String, Table,Enum
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import create_engine
 from eralchemy2 import render_er
@@ -27,7 +27,6 @@ class User(Base):
 #     __tablename__ = 'follower'
 #     id = Column(Integer, primary_key=True)
 
-
 #Relacion de uno a muchos entre user y post un usuario puede hacer muchos post 
 
 class Post(Base):
@@ -48,7 +47,7 @@ class Comment(Base):
 class Media(Base):
     __tablename__ = 'media'
     id =Column(Integer, primary_key=True)
-    type =Column(String(50), nullable=False)
+    type = Column(Enum('image', 'video', 'audio', name='media_types'), nullable=False)  # Definición de type como enum
     url =Column(String(255), nullable=False)
     post_id = Column(Integer, ForeignKey('post.id'), nullable=False)
 
