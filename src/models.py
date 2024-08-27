@@ -7,6 +7,7 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
+ #Relacion de muchos a muchos entre el  User con Folower un usuario puede seguir a varios usuarios y asi mismo estos usuarios pueden seguirle a él un a otros 
 followers = Table('followers',
     Base.metadata,            
     Column('user_from_id', Integer, ForeignKey('user.id'), primary_key=True),
@@ -21,15 +22,21 @@ class User(Base):
     lastname =Column(String(50), nullable=False)
     email =Column(String(255), nullable=False)
 
+#La class Follower ya no seria necesario declararla
 # class Follower(Base):
 #     __tablename__ = 'follower'
 #     id = Column(Integer, primary_key=True)
+
+
+#Relacion de uno a muchos entre user y post un usuario puede hacer muchos post 
 
 class Post(Base):
     __tablename__ = 'post'
     id =Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
 
+#Relacion de uno a muchos entre user y comment un usuario puede hacer muchos comment
+#Relacion de uno a muchos entre post y commet un post puede tener muchos comments
 class Comment(Base):
     __tablename__ = 'comment'
     id =Column(Integer, primary_key=True)
@@ -37,13 +44,13 @@ class Comment(Base):
     author_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     post_id = Column(Integer, ForeignKey('post.id'), nullable=False)
 
+#Relacion de uno a muchos entre post y media un post puede tener muchos fotos 
 class Media(Base):
     __tablename__ = 'media'
     id =Column(Integer, primary_key=True)
     type =Column(String(50), nullable=False)
     url =Column(String(255), nullable=False)
     post_id = Column(Integer, ForeignKey('post.id'), nullable=False)
-
 
 # class Person(Base):
 #     __tablename__ = 'person'
